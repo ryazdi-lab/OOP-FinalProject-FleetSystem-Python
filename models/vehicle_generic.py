@@ -8,6 +8,3 @@ class VehicleGeneric(Vehicle):
 
     def get_vehicle_type(self) -> str:
         return self.__class__.__name__
-
-    def perform_maintenance(self) -> None:
-        print(f"performing {self.__class__.__name__} maintenance")

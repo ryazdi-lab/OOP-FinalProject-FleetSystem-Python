@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 from datetime import date
+from typing import Any
 
 
 class Vehicle(ABC):
-    def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float):
+    def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float, **kwargs: Any):
+        super().__init__(**kwargs)
         # استفاده از Property Setter برای اعتبارسنجی اولیه
         self.plate_number = plate_number
         self.brand = brand
