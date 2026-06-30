@@ -6,8 +6,8 @@ from typing import Any
 class VehicleInsurable(VehicleGeneric, Insurable):
     def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float, insurance_premium_multiplier: float, coverage_eligibility: bool, **kwargs: Any):
         super().__init__(plate_number, brand, year, base_daily_rate, **kwargs)
-        self._insurance_premium_multiplier = insurance_premium_multiplier
-        self._coverage_eligibility = coverage_eligibility
+        self.insurance_premium_multiplier = insurance_premium_multiplier
+        self.coverage_eligibility = coverage_eligibility
 
     @property
     def insurance_premium_multiplier(self) -> float:
@@ -18,7 +18,8 @@ class VehicleInsurable(VehicleGeneric, Insurable):
         if value > 0:
             self._insurance_premium_multiplier = value
         else:
-            print("insurance_premium_multiplier must be a positive number")
+            raise ValueError(
+                "insurance_premium_multiplier must be a positive number")
 
     @property
     def coverage_eligibility(self) -> bool:

@@ -7,7 +7,7 @@ class VehicleRentable(VehicleGeneric, Rentable):
     def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float, daily_rent: float, **kwargs: Any):
         super().__init__(plate_number, brand, year, base_daily_rate, **kwargs)
         self._reserved = False
-        self._daily_rent = daily_rent
+        self.daily_rent = daily_rent
 
     @property  # reserved is changed via the reserved and return_vehicle methods so there shouldn't be a setter
     def reserved(self) -> bool:
@@ -22,7 +22,7 @@ class VehicleRentable(VehicleGeneric, Rentable):
         if value > 0:
             self._daily_rent = value
         else:
-            print("daily_rent must be a positive number")
+            raise ValueError("daily_rent must be a positive number")
 
     def calculate_daily_cost(self) -> float:
         return super().calculate_daily_cost() + self.calculate_rent(1)
