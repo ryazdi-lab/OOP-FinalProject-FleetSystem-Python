@@ -1,4 +1,34 @@
 from models.vehicle import Vehicle
+from models.mixins import Insurable
+
+
+class Truck(Vehicle, Insurable):
+    def __init__(
+        self,
+        plate_number: str,
+        brand: str,
+        year: int,
+        base_daily_rate: float,
+        cargo_capacity: float
+    ):
+        super().__init__(plate_number, brand, year, base_daily_rate)
+        self.cargo_capacity = cargo_capacity
+
+    def calculate_daily_cost(self) -> float:
+        return self.base_daily_rate * 1.50
+
+    def get_vehicle_type(self) -> str:
+        return "Truck"
+
+    def perform_maintenance(self) -> None:
+        print("بررسی سیستم هیدرولیک و بارگیری کامیون.")
+
+    def calculate_insurance_premium(self) -> float:
+        return self.base_daily_rate * 0.25
+
+    def is_eligible_for_coverage(self) -> bool:
+        return self.year >= 2000
+from models.vehicle import Vehicle
 from models.mixins import Rentable, Insurable
 
 class Truck(Vehicle, Rentable, Insurable):
