@@ -18,7 +18,7 @@ class Motorcycle(Vehicle,Rentable,Insurable):
     def calculate_rent(self,days:int) ->float:
         return self.calculate_daily_cost() * days
     def reserve(self) ->None:
-        print("motorcycle resecved successfully")
+        print("Motorcycle resecved successfully")
     def return_vehicle(self,actual_days:int) ->None:
         print(f"the motorcycle returned after {actual_days} days")
     def calculate_insurance_premium(self) ->float:
