@@ -1,15 +1,25 @@
 from abc import ABC, abstractmethod
 
+
 class Rentable(ABC):
     @abstractmethod
-    def calculate_rent(self, days: int) -> float: ...
+    def rent(self, days: int) -> float:
+        pass
+    
     @abstractmethod
-    def reserve(self) -> None: ...
+    def return_vehicle(self) -> str:
+        pass
+    
     @abstractmethod
-    def return_vehicle(self, actual_days: int) -> None: ...
+    def is_available(self) -> bool:
+        pass
+
 
 class Insurable(ABC):
     @abstractmethod
-    def calculate_insurance_premium(self) -> float: ...
+    def calculate_insurance(self) -> float:
+        pass
+    
     @abstractmethod
-    def is_eligible_for_coverage(self) -> bool: ...
+    def get_insurance_details(self) -> dict:
+        pass

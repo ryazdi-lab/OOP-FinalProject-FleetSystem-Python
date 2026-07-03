@@ -1,66 +1,58 @@
+"""
+Abstract base class for all vehicles in the Fleet Management System.
+"""
 from abc import ABC, abstractmethod
-from datetime import date
+
 
 class Vehicle(ABC):
-    def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float):
-        # استفاده از Property Setter برای اعتبارسنجی اولیه
-        self.plate_number = plate_number
-        self.brand = brand
-        self.year = year
-        self.base_daily_rate = base_daily_rate
-
-    # 🔹 Encapsulation + Validation via Properties
-    @property
-    def plate_number(self) -> str:
-        return self._plate_number
-
-    @plate_number.setter
-    def plate_number(self, value: str) -> None:
-        if not isinstance(value, str) or not value.strip():
-            raise ValueError("پلاک نمی‌تواند خالی باشد.")
-        self._plate_number = value.strip().upper()
-
+    """
+    Abstract base class representing a generic vehicle.
+    All vehicle types must inherit from this class.
+    """
+    
+    def __init__(self, brand: str, model: str, year: int):
+        self._brand = brand
+        self._model = model
+        self._year = year
+        self._validate_year()
+    
+    def _validate_year(self) -> None:
+        current_year = 2026
+        if not (1900 <= self._year <= current_year):
+            raise ValueError(f"Year must be between 1900 and {current_year}")
+    
+    @abstractmethod
+    def start_engine(self) -> str:
+        pass
+    
+    @abstractmethod
+    def stop_engine(self) -> str:
+        pass
+    
+    @abstractmethod
+    def calculate_fuel_efficiency(self) -> float:
+        pass
+    
+    @abstractmethod
+    def get_info(self) -> str:
+        pass
+    
     @property
     def brand(self) -> str:
         return self._brand
-
-    @brand.setter
-    def brand(self, value: str) -> None:
-        if not isinstance(value, str) or len(value) < 2:
-            raise ValueError("نام برند معتبر نیست.")
-        self._brand = value.title()
-
+    
+    @property
+    def model(self) -> str:
+        return self._model
+    
     @property
     def year(self) -> int:
         return self._year
-
+    
     @year.setter
     def year(self, value: int) -> None:
-        current_year = date.today().year
-        if not (1990 <= value <= current_year + 1):
-            raise ValueError("سال ساخت معتبر نیست.")
         self._year = value
-
-    @property
-    def base_daily_rate(self) -> float:
-        return self._base_daily_rate
-
-    @base_daily_rate.setter
-    def base_daily_rate(self, value: float) -> None:
-        if value <= 0:
-            raise ValueError("نرخ پایه باید مثبت باشد.")
-        self._base_daily_rate = value
-
-    # 🔹 Abstraction: Students MUST implement
-    @abstractmethod
-    def calculate_daily_cost(self) -> float: ...
-
-    @abstractmethod
-    def get_vehicle_type(self) -> str: ...
-
-    @abstractmethod
-    def perform_maintenance(self) -> None: ...
-
-    # 🔹 Inheritance Reuse
-    def display_info(self) -> None:
-        print(f"[{self.get_vehicle_type()}] {self.brand} | مدل: {self.year} | نرخ پایه: {self.base_daily_rate:.2f}")
+        self._validate_year()
+    
+    def __str__(self) -> str:
+        return self.get_info()
