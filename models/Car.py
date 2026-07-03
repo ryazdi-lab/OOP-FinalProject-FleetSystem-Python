@@ -10,7 +10,7 @@ class Car( Vehicle,Rentable, Insurable):
     def calculate_daily_cost(self):
         return self.base_daily_rate * 1.15
     def perform_maintenance(self) -> None:
-        print("car maintenace is starting ... ")
+        print("car maintenance is starting ... ")
         print("engine oil---> checked")
         print("battery ---> checked")
         print("air filter ---> checked")
@@ -22,7 +22,7 @@ class Car( Vehicle,Rentable, Insurable):
     def calculate_rent(self,days:int) ->float:
         return self.calculate_daily_cost() * days
     def reserve(self) -> None:
-        print ( " car reserved successfully")
+        print ( " car Reserved successfully")
     def return_vehicle(self,actual_days:int):
         print(f"the car returned after {actual_days} days")
     def calculate_insurance_premium(self) ->float:
