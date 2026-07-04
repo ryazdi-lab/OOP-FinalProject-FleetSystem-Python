@@ -19,7 +19,8 @@ class Car(Vehicle, Rentable, Insurable):
     def calculate_daily_cost(self) -> float:
         year_difference = self.CURRENT_YEAR - self.year
 
-        # if Car is newer than 5 Years it costs 20% More and if it is Older it Costs 10% More
+        # if Car is newer than 5 Years it costs 20% More
+        # because newer cars usually have better features and higher rental value
         if year_difference <= self.NEW_CAR_YEAR_LIMIT:
             return self.base_daily_rate + self.base_daily_rate * self.NEW_CAR_EXTRA_RATE
         else:
@@ -30,7 +31,7 @@ class Car(Vehicle, Rentable, Insurable):
     # Get Vehicle Type(Just Return "Car")
 
     def get_vehicle_type(self) -> str:
-        return "car"
+        return "Car"
     
     #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
