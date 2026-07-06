@@ -3,13 +3,11 @@ from datetime import date
 
 class Vehicle(ABC):
     def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float):
-        # استفاده از Property Setter برای اعتبارسنجی اولیه
         self.plate_number = plate_number
         self.brand = brand
         self.year = year
         self.base_daily_rate = base_daily_rate
 
-    # 🔹 Encapsulation + Validation via Properties
     @property
     def plate_number(self) -> str:
         return self._plate_number
@@ -51,16 +49,29 @@ class Vehicle(ABC):
             raise ValueError("نرخ پایه باید مثبت باشد.")
         self._base_daily_rate = value
 
-    # 🔹 Abstraction: Students MUST implement
     @abstractmethod
-    def calculate_daily_cost(self) -> float: ...
+    def calculate_daily_cost(self) -> float:
+        pass
 
     @abstractmethod
-    def get_vehicle_type(self) -> str: ...
+    def get_vehicle_type(self) -> str:
+        pass
 
     @abstractmethod
-    def perform_maintenance(self) -> None: ...
+    def perform_maintenance(self) -> None:
+        pass
 
-    # 🔹 Inheritance Reuse
+    @abstractmethod
+    def calculate_insurance_premium(self) -> float:
+        pass
+
+    @abstractmethod
+    def calculate_rent(self, days: int) -> float:
+        pass
+
+    @abstractmethod
+    def is_eligible_for_coverage(self) -> bool:
+        pass
+
     def display_info(self) -> None:
         print(f"[{self.get_vehicle_type()}] {self.brand} | مدل: {self.year} | نرخ پایه: {self.base_daily_rate:.2f}")
