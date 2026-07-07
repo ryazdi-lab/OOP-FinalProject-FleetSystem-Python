@@ -1,5 +1,8 @@
 from models.vehicle import Vehicle
 from models import Car, Motorcycle, Truck 
+
+
+
 def run_fleet_simulation(fleet: list[Vehicle]) -> None:
     for v in fleet:
         v.display_info()
