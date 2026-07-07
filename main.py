@@ -4,6 +4,7 @@ from models import Car, Motorcycle, Truck
 
 
 def run_fleet_simulation(fleet: list[Vehicle]) -> None:
+       # Demonstrating polymorphism with different vehicle objects
     for v in fleet:
         v.display_info()
         print(f"هزینه روزانه: {v.calculate_daily_cost():.2f}")
