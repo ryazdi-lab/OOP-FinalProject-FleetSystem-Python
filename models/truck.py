@@ -1,5 +1,6 @@
 from models.vehicle import Vehicle
 from models.mixins import Rentable, Insurable
+#Truck class represents heavy vehicles with truck-specfic properties
 class Truck(Vehicle,Rentable, Insurable):
     def __init__(self, plate_number, brand, year, base_daily_rate, load_capacity):
         super().__init__(plate_number, brand, year, base_daily_rate)

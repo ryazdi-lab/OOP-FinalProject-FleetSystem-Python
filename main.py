@@ -3,6 +3,7 @@ from models.vehicle import Vehicle
 from models.car import Car
 from models.motorcycle import Motorcycle
 from models.truck import Truck
+#main file to create vehicles and demonstrate polymorphism
 def run_fleet_simulation(fleet: list[Vehicle]) -> None:
     for v in fleet:
         v.display_info()
@@ -17,3 +18,4 @@ if __name__ == "__main__":
         Truck("TRK-99", "Volvo", 2018, 300.0, 10)
     ]
     run_fleet_simulation(fleet) 
+    # verified Vehicle subclasses and polymorphism behavior 

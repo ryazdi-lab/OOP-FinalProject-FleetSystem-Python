@@ -1,5 +1,6 @@
 from models.vehicle import Vehicle
 from models.mixins import Rentable, Insurable
+#otorcycle class extends vehicle and defines motorcycle-specific behavior
 class Motorcycle(Vehicle,Rentable, Insurable):
     def __init__(self, plate_number, brand, year, base_daily_rate, fuel_type):
         super().__init__(plate_number, brand, year, base_daily_rate)

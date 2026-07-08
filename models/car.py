@@ -1,5 +1,6 @@
 from models.vehicle import Vehicle
 from models.mixins import Rentable, Insurable
+#Car class represents a car vehicle with specific attributes and behaviors
 class Car(Vehicle, Rentable, Insurable):
     def __init__(self, plate_number, brand, year, base_daily_rate, door_count):
         super().__init__(plate_number, brand, year, base_daily_rate)
