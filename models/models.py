@@ -111,14 +111,14 @@ class Truck(Vehicle, Insurable):
     def get_vehicle_type(self) -> str:
         return "کامیون"
 
-    def perform_maintenance(self):
+    def perform_maintenance(self) -> None:
         print("ترمزها و کابین کامیون چک شد.")
 
-    def calculate_insurance_premium(self):
+    def calculate_insurance_premium(self) -> float:
         if not self.is_eligible_for_coverage():
             return 0
         return self.calculate_daily_cost() * 0.1
 
-    def is_eligible_for_coverage(self):
+    def is_eligible_for_coverage(self) -> bool:
         current_year = date.today().year
         return current_year - self.year <= 20
