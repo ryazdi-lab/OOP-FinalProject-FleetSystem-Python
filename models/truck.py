@@ -11,12 +11,12 @@ class Truck(Vehicle,Rentable, Insurable):
     def get_vehicle_type(self)-> str:
         return "Truck"
     def perform_maintenance(self)-> None:
-        print("سرویس کامیون انجام شد.")  
+        print("سرویس کامیون انجام شد!")  
     def calculate_rent(self, days: int)-> float:
         return self.calculate_daily_cost() * days
     def reserve(self) -> None:
         self.reserved =True
-        print("کامیون رزرو شد")    
+        print("کامیون رزرو شد!")    
     def return_vehicle(self, actual_days : int) -> None:
         self.reserved = False
         print(f"کامیون بعد از {actual_days} روز بازگشت داده شد")  
