@@ -1,7 +1,7 @@
 from models.mixins import Rentable
 from models.vehicle import Vehicle
 
-class Car(Vehicle,Rentable):
+class Motorcycle(Vehicle,Rentable):
 
     def calculate_daily_cost(self) -> float:
         return self.base_daily_rate*self.year/1000
