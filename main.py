@@ -1,4 +1,7 @@
 from models.vehicle import Vehicle
+from models.car import Car
+from models.motorcycle import Motorcycle
+from models.truck import Truck
 
 def run_fleet_simulation(fleet: list[Vehicle]) -> None:
     for v in fleet:
@@ -21,6 +24,18 @@ if __name__ == "__main__":
        Truck("99999V", "Volvo", 2020, 900.0),
        Truck("88888S", "Scania", 2012, 800.0),
        Truck("77777I", "Iveco", 1999, 760.0),
-       Truck("66666M", "Mack", 1988, 710.0),
+       Truck("66666M", "Mack", 1990, 710.0),
     ]
     run_fleet_simulation(fleet)
+
+
+    print("\n=== Rentable Vehicles ===")
+    for v in fleet:
+        if hasattr(v, "calculate_rent"):
+            print(f"{v.get_vehicle_type()} - 7-day rent: {v.calculate_rent(7):.2f}")
+
+    
+    print("\n=== Insurable Vehicles ===")
+    for v in fleet:
+        if hasattr(v, "calculate_insurance_premium"):
+            print(f"{v.get_vehicle_type()} Insurance premium: {v.calculate_insurance_premium():.2f}")
