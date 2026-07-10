@@ -1,34 +1,33 @@
+"""کلاس انتزاعی پایه برای تمام وسایل نقلیه ناوگان (هستهٔ Abstraction)."""
+
 from abc import ABC, abstractmethod
-from datetime import date
+from datetime import datetime
+
 
 class Vehicle(ABC):
-    def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float):
-        # استفاده از Property Setter برای اعتبارسنجی اولیه
-        self.plate_number = plate_number
-        self.brand = brand
+    """
+    پایهٔ انتزاعی هر وسیله نقلیه.
+
+    این کلاس قرارداد مشترک (متدهای انتزاعی) را تعریف می‌کند و رفتار
+    مشترک (توصیف، اعتبارسنجی) را در یک جا نگه می‌دارد تا از تکرار کد
+    در کلاس‌های فرزند جلوگیری شود.
+    """
+
+    def __init__(self, make: str, model: str, year: int, base_price: float) -> None:
+        self._make = make
+        self._model = model
+        # از setterها برای اعتبارسنجی مقادیر ورودی استفاده می‌کنیم
         self.year = year
-        self.base_daily_rate = base_daily_rate
+        self.base_price = base_price
 
-    # 🔹 Encapsulation + Validation via Properties
+    # ---------- Encapsulation: property + validation ----------
     @property
-    def plate_number(self) -> str:
-        return self._plate_number
-
-    @plate_number.setter
-    def plate_number(self, value: str) -> None:
-        if not isinstance(value, str) or not value.strip():
-            raise ValueError("پلاک نمی‌تواند خالی باشد.")
-        self._plate_number = value.strip().upper()
+    def make(self) -> str:
+        return self._make
 
     @property
-    def brand(self) -> str:
-        return self._brand
-
-    @brand.setter
-    def brand(self, value: str) -> None:
-        if not isinstance(value, str) or len(value) < 2:
-            raise ValueError("نام برند معتبر نیست.")
-        self._brand = value.title()
+    def model(self) -> str:
+        return self._model
 
     @property
     def year(self) -> int:
@@ -36,31 +35,54 @@ class Vehicle(ABC):
 
     @year.setter
     def year(self, value: int) -> None:
-        current_year = date.today().year
-        if not (1990 <= value <= current_year + 1):
-            raise ValueError("سال ساخت معتبر نیست.")
-        self._year = value
+        current_year = datetime.now().year
+        if value < 1900 or value > current_year + 1:
+            raise ValueError(f"سال نامعتبر است: {value}")
+        self._year = int(value)
 
     @property
-    def base_daily_rate(self) -> float:
-        return self._base_daily_rate
+    def base_price(self) -> float:
+        """قیمت پایهٔ خرید وسیله نقلیه (مبنای محاسبهٔ بیمه و نگهداری)."""
+        return self._base_price
 
-    @base_daily_rate.setter
-    def base_daily_rate(self, value: float) -> None:
+    @base_price.setter
+    def base_price(self, value: float) -> None:
         if value <= 0:
-            raise ValueError("نرخ پایه باید مثبت باشد.")
-        self._base_daily_rate = value
+            raise ValueError("قیمت پایه باید بزرگ‌تر از صفر باشد")
+        self._base_price = float(value)
 
-    # 🔹 Abstraction: Students MUST implement
+    # ---------- Abstraction: قرارداد (بدون پیاده‌سازی) ----------
     @abstractmethod
-    def calculate_daily_cost(self) -> float: ...
-
-    @abstractmethod
-    def get_vehicle_type(self) -> str: ...
+    def vehicle_type(self) -> str:
+        """نام فارسی نوع وسیله نقلیه."""
 
     @abstractmethod
-    def perform_maintenance(self) -> None: ...
+    def wheels(self) -> int:
+        """تعداد چرخ‌ها."""
 
-    # 🔹 Inheritance Reuse
-    def display_info(self) -> None:
-        print(f"[{self.get_vehicle_type()}] {self.brand} | مدل: {self.year} | نرخ پایه: {self.base_daily_rate:.2f}")
+    @abstractmethod
+    def calculate_maintenance_cost(self) -> float:
+        """هزینهٔ نگهداری سالانه؛ فرمول آن برای هر نوع وسیله متفاوت است."""
+
+    # ---------- رفتار مشترک (قابل استفاده به‌صورت چندریختی) ----------
+    def describe(self) -> str:
+        """
+        توصیف وسیله نقلیه با فراخوانی متدهای انتزاعی.
+
+        این متد پایهٔ چندریختی است: بدون دانستن نوع دقیق شیء،
+        رفتار مناسب هر کلاس فرزند به‌صورت خودکار اجرا می‌شود.
+        """
+        return (
+            f"[{self.vehicle_type()}] {self.make} {self.model} ({self.year}) "
+            f"| {self.wheels()} چرخ "
+            f"| نگهداری سالانه: {self.calculate_maintenance_cost():,.0f} تومان"
+        )
+
+    def __str__(self) -> str:
+        return self.describe()
+
+    def __repr__(self) -> str:
+        return (
+            f"{self.__class__.__name__}(make={self.make!r}, model={self.model!r}, "
+            f"year={self.year}, base_price={self.base_price})"
+        )
