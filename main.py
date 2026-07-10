@@ -20,3 +20,4 @@ if __name__ == "__main__":
     run_fleet_simulation(fleet)
     #fateme sadat hashemi
     #40414162130
+    # Polymorphism example with Car, Motorcycle, and Truck
