@@ -41,3 +41,4 @@ class Car(Vehicle, Rentable, Insurable):
 
     def is_english_for_coverage(self) -> bool:
         return self.year >= 2021
+    # Car class with rental and insurance capabilities
