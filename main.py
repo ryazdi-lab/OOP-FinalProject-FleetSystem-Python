@@ -1,16 +1,34 @@
 from models.vehicle import Vehicle
+from models.car import Car
+from models.motorcycle import Motorcycle
+from models.truck import Truck
 
-def run_fleet_simulation(fleet: list[Vehicle]) -> None:
-    for v in fleet:
-        v.display_info()
-        print(f"هزینه روزانه: {v.calculate_daily_cost():.2f}")
+def start_simulation(vehicle_list: list[Vehicle]) -> None:
+    for index, v in enumerate(vehicle_list, 1):
+        print(f"\n========== وسیله شماره {index} ==========")
+        v.display_info()        
+        premium = v.calculate_insurance_premium()
+        eligible = v.is_eligible_for_coverage()
+        print(f"حق بیمه: {premium:,.0f} تومان")
+        print(f"پوشش بیمه: {'فعال' if eligible else 'غیرفعال'}")
+
+        days = 4
+        v.reserve()
+        rent_fee = v.calculate_rent(days)
+        print(f"هزینه اجاره برای {days} روز: {rent_fee:,.0f} تومان")
+        v.return_vehicle(days)
+
+        daily = v.calculate_daily_cost()
+        print(f"هزینه روزانه: {daily:,.0f} تومان")
         v.perform_maintenance()
-        print("-" * 40)
+
+        print("==========================================\n")
+
 
 if __name__ == "__main__":
-    # دانشجویان اینجا اشیاء concrete را می‌سازند و به لیست اضافه می‌کنند
-    fleet: list[Vehicle] = [
-        # Car("12345", "Toyota", 2020, 150.0),
-        # Truck("TRK-99", "Volvo", 2018, 300.0),
+    fleet = [
+        Car("IR-111-AA", "Renault", 2020, 480000, 4),
+        Motorcycle("IR-222-BB", "Kawasaki", 2019, 190000, 300),
+        Truck("IR-333-CC", "Scania", 2018, 820000, 6.5)
     ]
-    run_fleet_simulation(fleet)
+    start_simulation(fleet)
