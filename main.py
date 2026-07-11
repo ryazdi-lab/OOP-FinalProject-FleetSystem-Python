@@ -13,6 +13,7 @@ def run_fleet_simulation(fleet: list[Vehicle]) -> None:
 
 
 if __name__ == "__main__":
+    # Create a fleet to demonstrate polymorphism
     fleet: list[Vehicle] = [
         Car("12345", "Toyota", 2020, 150.0),
         Truck("TRK-99", "Volvo", 2018, 300.0),
