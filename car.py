@@ -1,7 +1,7 @@
 from models.vehicle import Vehicle
 from models.mixins import Rentable, Insurable
 
-
+# Car implementation
 class Car(Vehicle, Rentable, Insurable):
     def __init__(
         self,
