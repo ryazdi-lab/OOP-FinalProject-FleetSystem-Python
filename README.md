@@ -84,3 +84,6 @@ fleet-oop-project/
 4. تعهد به Git Workflow: حداقل ۳ کامیت منطقی، پیام‌های کامیت به زبان انگلیسی و استفاده از Branch مجزا الزامی است. کامیت‌های `fix` یا `update` بدون توضیح  نباشند.
 5. کمک گرفتن از LLM ها بلامانع است. اما باید به منطق کدتان مسلط باشید.
 
+## Design Notes
+
+This project demonstrates object-oriented programming principles including encapsulation, inheritance, abstraction, and polymorphism.
