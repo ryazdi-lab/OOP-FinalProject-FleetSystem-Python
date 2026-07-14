@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Rentable(ABC):
     @abstractmethod
     def calculate_rent(self, days: int) -> float: ...
@@ -7,6 +8,7 @@ class Rentable(ABC):
     def reserve(self) -> None: ...
     @abstractmethod
     def return_vehicle(self, actual_days: int) -> None: ...
+
 
 class Insurable(ABC):
     @abstractmethod

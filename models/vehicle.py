@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
 from datetime import date
+from typing import Any
+
 
 class Vehicle(ABC):
-    def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float):
+    def __init__(self, plate_number: str, brand: str, year: int, base_daily_rate: float, **kwargs: Any):
+        super().__init__(**kwargs)
         # استفاده از Property Setter برای اعتبارسنجی اولیه
         self.plate_number = plate_number
         self.brand = brand
@@ -16,7 +19,7 @@ class Vehicle(ABC):
 
     @plate_number.setter
     def plate_number(self, value: str) -> None:
-        if not isinstance(value, str) or not value.strip():
+        if not value.strip():
             raise ValueError("پلاک نمی‌تواند خالی باشد.")
         self._plate_number = value.strip().upper()
 
@@ -26,7 +29,7 @@ class Vehicle(ABC):
 
     @brand.setter
     def brand(self, value: str) -> None:
-        if not isinstance(value, str) or len(value) < 2:
+        if len(value) < 2:
             raise ValueError("نام برند معتبر نیست.")
         self._brand = value.title()
 
